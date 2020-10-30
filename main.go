@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 )
 
 type ApiResponse struct {
@@ -44,15 +45,14 @@ func calculateEquivalent(base, target string, amount float64) (float64, float64)
 
 func main() {
 	args := os.Args[1:]
-	fmt.Println(args)
 
 	amountOfBaseCurr, err := strconv.ParseFloat(args[0], 32)
 	if err != nil {
 		panic(err)
 	}
 
-	baseCurrency := args[1]
-	targetCurrency := args[len(args)-1]
+	baseCurrency := strings.ToUpper(args[1])
+	targetCurrency := strings.ToUpper(args[len(args)-1])
 
 	amountOfTargetCurr, rate := calculateEquivalent(baseCurrency, targetCurrency, amountOfBaseCurr)
 
